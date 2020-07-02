@@ -1,0 +1,23 @@
+{
+  "name": "test-dual",
+  "version": "1.0.0",
+  "description": "This repository is a test.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmanuelAyTuz/test-dual.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmmanuelAyTuz/test-dual/issues"
+  },
+  "homepage": "https://github.com/EmmanuelAyTuz/test-dual#readme",
+  "dependencies": {
+    "mongoose": "^5.9.21"
+  }
+}

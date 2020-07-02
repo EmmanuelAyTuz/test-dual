@@ -7,7 +7,8 @@ const bodyParser = require("body-parser");
 require("./database");
 
 //Middleware
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Routes
 app.use(require("./routes/user.route"));

@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const { mongo_db } = require("./config/env");
 
 mongoose
-  .connect(mongo_db, { useUnifiedTopology: true, useNewUrlParser: true })
+  .connect(mongo_db, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  })
   .then((db) => {
     console.log("Mongo DB is connected: ", db.connection.client.s.url);
   })

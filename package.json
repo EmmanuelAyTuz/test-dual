@@ -2,8 +2,11 @@
   "name": "test-dual",
   "version": "1.0.0",
   "description": "This repository is a test.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "install": "npm install",
+    "dev": "nodemon server.js",
+    "server": "node servor.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +21,10 @@
   },
   "homepage": "https://github.com/EmmanuelAyTuz/test-dual#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "mongoose": "^5.9.21"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

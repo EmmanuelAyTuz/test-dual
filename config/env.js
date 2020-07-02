@@ -1,14 +1,17 @@
 const dotenv = require("dotenv");
-dotenv.config();
+const { error, parsed } = dotenv.config();
 
-if (dotenv.error) {
-  throw dotenv.error;
+try {
+  if (error) {
+    throw error;
+  }
+  console.log("Success ENV: ", parsed);
+} catch (err) {
+  console.error("Error ENV:", err.message);
 }
-
-console.log("Successfull: ", dotenv.parsed);
 
 //Environments of the project
 module.exports = {
-  url_mongo: process.env.MONGO_DB,
-  port: process.env.PORT,
+  mongo_db: parsed.MONGO_DB,
+  port: parsed.PORT,
 };

@@ -8,7 +8,11 @@ const UserSchema = new Schema(
     //mlastname: { type: String, required: true, uppercase: true, trim: true },
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
-    isAdmin: { type: Boolean, required: true, default: false },
+    type_user: {
+      type: String,
+      enum: ["root", "admin", "student", "teacher"],
+      required: true,
+    },
     //email: { type: String, required: true, index: { unique: true } },
   },
   { timestamps: true }

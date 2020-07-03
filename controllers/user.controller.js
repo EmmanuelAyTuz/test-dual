@@ -1,7 +1,7 @@
 const { encryptPassword } = require("../helpers/bpassword");
 
 //Model
-const User = require("../models/user.model");
+const { User, getEnumTypeUser } = require("../models/user.model");
 
 const renderTest = (req, res) => {
   res.send("<h1 style='color:red'>Test</h1>");
@@ -70,7 +70,7 @@ const renderReadMany = async (req, res) => {
       limit = 0;
     }
     if (!where || where.length < 1) {
-      where = await User.schema.path("type_user").enumValues; //Get default enum from model
+      where = await getEnumTypeUser; //Get default enum from model
     }
     if (!sort) {
       sort = "+_id"; //Default sort

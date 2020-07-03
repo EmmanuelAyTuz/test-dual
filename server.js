@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Routes
 app.use(require("./routes/user.route"));
+app.use(require("./routes/subject.route"));
 
 //Init server
 app.listen(port, () => {

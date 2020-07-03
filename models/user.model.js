@@ -13,9 +13,22 @@ const UserSchema = new Schema(
       enum: ["root", "admin", "student", "teacher"],
       required: false,
     },
+    subject: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Subject",
+        require: false,
+      },
+    ],
     //email: { type: String, required: true, index: { unique: true } },
   },
   { timestamps: true }
 );
 
-module.exports = model("User", UserSchema);
+//Get enum credit of subject
+const getEnumTypeUser = async () =>
+  await UserSchema.path("type_user").enumValues;
+
+const User = model("User", UserSchema);
+
+module.exports = { User, getEnumTypeUser };

@@ -6,6 +6,7 @@ mongoose
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
+    useFindAndModify: false,
   })
   .then((db) => {
     console.log("Mongo DB is connected: ", db.connection.client.s.url);

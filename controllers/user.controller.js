@@ -87,7 +87,28 @@ const renderReadMany = async (req, res) => {
   }
 };
 
-const renderUpdateOne = async (req, res) => {};
+const renderUpdateOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, password, type_user } = req.body;
+    if (!type_user) {
+      type_user = "student";
+    }
+    if (!id) {
+      throw new Error("Provide an ID");
+    }
+    const user = await User.findByIdAndUpdate(
+      id,
+      { username, password: await encryptPassword(password), type_user },
+      {
+        new: true,
+      }
+    );
+    res.send(user);
+  } catch (err) {
+    console.error(err);
+  }
+};
 const renderUpdateMany = async (req, res) => {};
 
 const renderDeleteOne = async (req, res) => {

@@ -3,6 +3,9 @@ const app = express();
 const { port } = require("./config/env");
 const bodyParser = require("body-parser");
 
+// Set EJS as templating engine
+app.set('view engine', 'ejs');
+
 //Call DB
 require("./database");
 

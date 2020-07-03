@@ -8,6 +8,12 @@ const renderTest = (req, res) => {
 };
 
 const renderCreateOne = async (req, res) => {
+  /*
+    Body form:
+        username
+        password
+    t   type_user
+    */
   try {
     let { username, password, type_user } = req.body;
     if (!type_user) {
@@ -28,6 +34,11 @@ const renderCreateOne = async (req, res) => {
 const renderCreateMany = async (req, res) => {};
 
 const renderReadOne = async (req, res) => {
+  /*
+    /user/<ID>
+
+    ID is a long id autogenerate by mongo
+    */
   try {
     const { id } = req.params;
     const user = await User.findById(id);
@@ -47,6 +58,8 @@ const renderReadMany = async (req, res) => {
       Limit reduces the number of objects returned, 0 returns all.
       Where conditions objects based on type_user.
       Sort sorts the ascending (+) or descending (-) objects indicating the field by which to sort.
+
+      Note: &where=student&where=root is valid
     */
 
   try {
@@ -78,6 +91,11 @@ const renderUpdateOne = async (req, res) => {};
 const renderUpdateMany = async (req, res) => {};
 
 const renderDeleteOne = async (req, res) => {
+  /*
+    /user/delete/id/<ID>
+    
+    ID is a long id autogenerate by mongo
+    */
   try {
     const { id } = req.params;
     const user = await User.findByIdAndDelete(id);
@@ -91,6 +109,13 @@ const renderDeleteOne = async (req, res) => {
   }
 };
 const renderDeleteMany = async (req, res) => {
+  /*
+    /user/delete/id?who[]=id1&who[]=id2 ...
+    
+    idn is a long id autogenerate by mongo
+
+    Note: &who=<ID>&who=<ID> is valid
+    */
   try {
     let { who } = req.query;
     if (!who || who.length < 1) {
@@ -107,6 +132,13 @@ const renderDeleteMany = async (req, res) => {
   }
 };
 const renderDeleteManyType = async (req, res) => {
+  /*
+    /user/delete/id?where[]=student&where[]=root ...
+    
+    where are the type user
+
+    Note: &where=<TYPE>&where=<TYPE> is valid
+    */
   try {
     let { where } = req.query;
     if (!where || where.length < 1) {

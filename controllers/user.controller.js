@@ -1,3 +1,5 @@
+const { encryptPassword } = require("../helpers/bpassword");
+
 //Model
 const User = require("../models/user.model");
 
@@ -7,15 +9,19 @@ const renderTest = (req, res) => {
 
 const renderCreateOne = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = new User({ username });
+    let { username, password, type_user } = req.body;
+    if (!type_user) {
+      type_user = "student";
+    }
+    const user = new User({ username, type_user });
     user.password = await encryptPassword(password);
     await user.save();
     if (!user) {
-      throw new Error("User has not been saved");
+      throw new Error("User has NOT been saved");
     }
     res.send(user);
   } catch (err) {
+    res.send({ id: null, info: err.message });
     console.error(err);
   }
 };
@@ -26,10 +32,11 @@ const renderReadOne = async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(id);
     if (!user) {
-      throw new Error("User no exist");
+      throw new Error("User not found");
     }
     res.send(user);
   } catch (err) {
+    res.send({ id: req.params.id, info: err.message });
     console.error(err);
   }
 };
@@ -70,8 +77,51 @@ const renderReadMany = async (req, res) => {
 const renderUpdateOne = async (req, res) => {};
 const renderUpdateMany = async (req, res) => {};
 
-const renderDeleteOne = async (req, res) => {};
-const renderDeleteMany = async (req, res) => {};
+const renderDeleteOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+      throw new Error("User has NOT been deleted");
+    }
+    res.send(user);
+  } catch (err) {
+    res.send({ id: req.params.id, info: err.message });
+    console.error(err);
+  }
+};
+const renderDeleteMany = async (req, res) => {
+  try {
+    let { who } = req.query;
+    if (!who || who.length < 1) {
+      throw new Error("Provide at least one ID");
+    }
+    const user = await User.deleteMany({ _id: who });
+    if (!user) {
+      throw new Error("Users has NOT been deleted");
+    }
+    res.send(user);
+  } catch (err) {
+    res.send({ who: req.query.who, info: err.message });
+    console.error(err);
+  }
+};
+const renderDeleteManyType = async (req, res) => {
+  try {
+    let { where } = req.query;
+    if (!where || where.length < 1) {
+      throw new Error("Provide at least one User Type");
+    }
+    const user = await User.deleteMany({ type_user: where });
+    if (!user) {
+      throw new Error("Users has NOT been deleted");
+    }
+    res.send(user);
+  } catch (err) {
+    res.send({ type_user: req.query.where, info: err.message });
+    console.error(err);
+  }
+};
 
 module.exports = {
   renderTest,
@@ -83,4 +133,5 @@ module.exports = {
   renderUpdateMany,
   renderDeleteOne,
   renderDeleteMany,
+  renderDeleteManyType,
 };

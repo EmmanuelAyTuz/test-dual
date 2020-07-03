@@ -18,6 +18,13 @@ const UserSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Subject",
         require: false,
+        validate: {
+          validator: async (id) =>
+            await model("Subject").findById(id, (err, result) =>
+              result ? true : false
+            ),
+          message: "Subject no found",
+        },
       },
     ],
     //email: { type: String, required: true, index: { unique: true } },

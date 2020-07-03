@@ -70,7 +70,8 @@ const renderReadMany = async (req, res) => {
       limit = 0;
     }
     if (!where || where.length < 1) {
-      where = await getEnumTypeUser; //Get default enum from model
+      where = await getEnumTypeUser(); //Get default enum from model
+      console.log(where);
     }
     if (!sort) {
       sort = "+_id"; //Default sort

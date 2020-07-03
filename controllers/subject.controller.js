@@ -1,6 +1,7 @@
 //Model
 const { Subject, getEnumCredit } = require("../models/subject.model");
 
+const { User } = require("../models/user.model");
 const renderTest = (req, res) => {
   res.send("<h1 style='color:blue'>Test</h1>");
 };
@@ -72,7 +73,8 @@ const renderReadMany = async (req, res) => {
     const subject = await Subject.find()
       .limit(parseInt(limit))
       .where("credit", where)
-      .sort(sort);
+      .sort(sort)
+      .populate("student");
     //Return a object
     res.send(subject);
   } catch (err) {
@@ -83,11 +85,29 @@ const renderReadMany = async (req, res) => {
 //Special
 const addSubjectToStudent = async (req, res) => {};
 
-const addStudentToSubject = async (req, res) => {};
+const addStudentToSubject = async (req, res) => {
+  try {
+    //ID subject & ID Student
+    const { id_user, id_subject } = req.query;
+    const subject = await Subject.findByIdAndUpdate(
+      id_subject,
+      { $push: { student: id_user } },
+      { new: true, runValidators: true }
+    );
+
+    if (!subject) {
+      throw new Error("Subject not found");
+    }
+    res.send(subject);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 module.exports = {
   renderTest,
   renderCreateOne,
   renderReadOne,
   renderReadMany,
+  addStudentToSubject,
 };

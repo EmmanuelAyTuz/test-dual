@@ -27,6 +27,13 @@ const SubjectSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "User",
         require: false,
+        validate: {
+          validator: async (id) =>
+            await model("User").findById(id, (err, result) =>
+              result ? true : false
+            ),
+          message: "User no found",
+        },
       },
     ],
   },

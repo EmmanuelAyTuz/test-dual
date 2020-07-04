@@ -2,6 +2,7 @@ const { encryptPassword } = require("../helpers/bpassword");
 
 //Model
 const { User, getEnumTypeUser } = require("../models/user.model");
+const { use } = require("../routes/user.route");
 
 const renderTest = (req, res) => {
   res.send("<h1 style='color:red'>Test</h1>");
@@ -80,7 +81,8 @@ const renderReadMany = async (req, res) => {
     const user = await User.find()
       .limit(parseInt(limit))
       .where("type_user", where)
-      .sort(sort);
+      .sort(sort)
+      .populate("subject");
     //Return a object
     res.send(user);
   } catch (err) {
@@ -177,8 +179,21 @@ const renderDeleteManyType = async (req, res) => {
   }
 };
 
+const addSubjectToStudent = async (req, res) => {
+  const { id_user, id_subject } = req.query;
+  const user = await User.findByIdAndUpdate(
+    id_user,
+    { $push: { subject: id_subject } },
+    { new: true, runValidators: true }
+  );
+  if (!user) {
+    throw new Error("Problems with the subject");
+  }
+};
+
 module.exports = {
   renderTest,
+  addSubjectToStudent,
   renderCreateOne,
   renderCreateMany,
   renderReadOne,

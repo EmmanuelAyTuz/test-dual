@@ -1,7 +1,13 @@
 //Model
-const { Subject, getEnumCredit } = require("../models/subject.model");
+const {
+  Subject,
+  getEnumCredit,
+  userAdded,
+} = require("../models/subject.model");
 
-const { User } = require("../models/user.model");
+//Controller
+const { addSubjectToStudent } = require("./user.controller");
+
 const renderTest = (req, res) => {
   res.send("<h1 style='color:blue'>Test</h1>");
 };
@@ -83,12 +89,14 @@ const renderReadMany = async (req, res) => {
 };
 
 //Special
-const addSubjectToStudent = async (req, res) => {};
-
 const addStudentToSubject = async (req, res) => {
   try {
     //ID subject & ID Student
     const { id_user, id_subject } = req.query;
+    const ua = await userAdded(id_user, id_subject);
+    if (ua) {
+      throw new Error("User has been added");
+    }
     const subject = await Subject.findByIdAndUpdate(
       id_subject,
       { $push: { student: id_user } },
@@ -98,9 +106,13 @@ const addStudentToSubject = async (req, res) => {
     if (!subject) {
       throw new Error("Subject not found");
     }
+
+    addSubjectToStudent(req, res);
+
     res.send(subject);
   } catch (err) {
-    console.error(err);
+    res.send({ id: req.query.id_user, info: err.message });
+    //console.error(err);
   }
 };
 

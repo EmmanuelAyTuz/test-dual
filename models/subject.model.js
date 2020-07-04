@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
+//Validations
+const userExist = async (id) =>
+  (await model("User").findById(id)) ? true : false;
+
+const userAdded = async (user_id, sb_id) => {
+  const sb = await model("Subject").find({ _id: sb_id }, "student");
+  return sb[0].student.includes(user_id);
+};
+
+//Schema
 const SubjectSchema = new Schema(
   {
     title: {
@@ -26,23 +36,23 @@ const SubjectSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "User",
-        require: false,
-        validate: {
-          validator: async (id) =>
-            await model("User").findById(id, (err, result) =>
-              result ? true : false
-            ),
-          message: "User no found",
-        },
+        validate: [
+          {
+            validator: userExist,
+            message: "User no found",
+          },
+        ],
       },
     ],
   },
   { timestamps: true }
 );
 
+//SubjectSchema.index({ student: 1 }, { unique: true, dropDups: true });
+
 //Get enum credit of subject
 const getEnumCredit = async () =>
   await SubjectSchema.path("credit").options.enum;
 
 const Subject = model("Subject", SubjectSchema);
-module.exports = { Subject, getEnumCredit };
+module.exports = { Subject, getEnumCredit, userAdded };

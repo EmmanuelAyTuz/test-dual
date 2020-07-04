@@ -17,7 +17,6 @@ const UserSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Subject",
-        require: false,
         validate: {
           validator: async (id) =>
             await model("Subject").findById(id, (err, result) =>

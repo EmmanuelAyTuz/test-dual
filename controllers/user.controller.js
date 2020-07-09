@@ -2,10 +2,10 @@ const { encryptPassword } = require("../helpers/bpassword");
 
 //Model
 const { User, getEnumTypeUser } = require("../models/user.model");
-const { use } = require("../routes/user.route");
 
 const renderTest = (req, res) => {
-  res.send("<h1 style='color:red'>Test</h1>");
+  //res.send("<h1 style='color:red'>Test</h1>");
+  res.render("User");
 };
 
 const renderCreateOne = async (req, res) => {

@@ -6,13 +6,19 @@
         body {
             background-color: skyblue;
             text-decoration-color: white;
-            font-size: 7em;
+            font-size: 18px;
         }
     </style>
 </head>
 
 <body>
-    <center>This is our home page.</center>
+    <% user.forEach((v) => { %>
+    <%= v.username + ' es un ' + v.type_user + ' y tiene las sig. materias: '%>
+    <% v.subject.forEach((s) => { %>
+    <%= s.title %><br>
+    <% }); %>
+    <br><br>
+    <% }); %>
 </body>
 
 </html>

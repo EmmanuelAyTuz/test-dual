@@ -5,7 +5,8 @@ const { User, getEnumTypeUser } = require("../models/user.model");
 
 const renderTest = (req, res) => {
   //res.send("<h1 style='color:red'>Test</h1>");
-  res.render("User");
+  let word = "Hola!!!";
+  res.render("User", { word });
 };
 
 const renderCreateOne = async (req, res) => {
@@ -84,7 +85,9 @@ const renderReadMany = async (req, res) => {
       .sort(sort)
       .populate("subject");
     //Return a object
-    res.send(user);
+    //res.send(user);
+    console.log(user);
+    res.render("User", { user });
   } catch (err) {
     console.error(err);
   }

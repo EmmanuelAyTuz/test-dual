@@ -11,11 +11,14 @@ const {
   renderDeleteManyType,
   renderDeleteMany,
   renderUpdateOne,
+  renderSignup,
 } = require("../controllers/user.controller");
 
 route.get("/test", renderTest);
 
+route.get("/user/create", renderSignup); //Require body
 route.post("/user/create", renderCreateOne); //Require body
+
 
 route.get("/user/all", renderReadMany); ////Require param
 route.get("/user/:id", renderReadOne); //Require param

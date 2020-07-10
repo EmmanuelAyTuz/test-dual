@@ -9,6 +9,10 @@ const renderTest = (req, res) => {
   res.render("User", { word });
 };
 
+const renderSignup = (req, res) => {
+  res.render("users/signup");
+};
+
 const renderCreateOne = async (req, res) => {
   /*
     Body form:
@@ -206,4 +210,5 @@ module.exports = {
   renderDeleteOne,
   renderDeleteMany,
   renderDeleteManyType,
+  renderSignup,
 };

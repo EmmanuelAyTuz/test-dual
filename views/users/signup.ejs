@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+  <%- include('layouts/main.ejs') %>
+</head>
+
 <body class="container">
   <div class="row">
     <div class="col-md-4 mx-auto">
@@ -14,9 +19,10 @@
             </div>
             <div class="form-group">
               <select class="form-group form-control" name="type_user">
-                <option>Administrativo</option>
-                <option>Alumno</option>
-                <option>Docente</option>
+                <option>root</option>
+                <option>admin</option>
+                <option>student</option>
+                <option>teacher</option>
               </select>
             </div>
             <div class="form-group">

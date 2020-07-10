@@ -33,7 +33,7 @@ const renderCreateOne = async (req, res) => {
     console.error(err);
   }
 };
-const renderCreateMany = async (req, res) => {};
+const renderCreateMany = async (req, res) => { };
 
 const renderReadOne = async (req, res) => {
   /*
@@ -115,7 +115,7 @@ const renderUpdateOne = async (req, res) => {
     console.error(err);
   }
 };
-const renderUpdateMany = async (req, res) => {};
+const renderUpdateMany = async (req, res) => { };
 
 const renderDeleteOne = async (req, res) => {
   /*

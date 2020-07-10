@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<body class="container">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          Registrar una cuenta
+        </div>
+        <div class="card-body">
+          <form action="/user/create" method="POST">
+            <div class="form-group">
+              <input type="text" class="form-control" name="username" placeholder="Usuario">
+            </div>
+            <div class="form-group">
+              <select class="form-group form-control" name="type_user">
+                <option>Administrativo</option>
+                <option>Alumno</option>
+                <option>Docente</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="password" placeholder="Contraseña">
+            </div>
+            <button class="btn btn-primary btn-block">
+              Registrarse
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
